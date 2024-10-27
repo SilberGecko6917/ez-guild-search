@@ -5,7 +5,6 @@ from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
 import customtkinter as ctk
-import ezcord
 import pandas as pd
 import pyperclip
 import sv_ttk
