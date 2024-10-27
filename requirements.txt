@@ -1,3 +1,4 @@
 pandas
 customtkinter
 pyperclip
+sv_ttk
