@@ -1,0 +1,62 @@
+{
+  "de": {
+    "title": "EzCord Guild Sorter",
+    "file_management": "Datei Verwaltung",
+    "load_file": "📂 Datei laden",
+    "export_data": "📤 Exportieren",
+    "member_count": "Mitgliederanzahl",
+    "guild_name": "Servername",
+    "guild_id": "Server-ID",
+    "owner": "Besitzer",
+    "error": "Fehler",
+    "success": "Erfolg",
+
+    "sort": "Sortierung",
+    "descending": "Absteigend",
+    "ascending": "Aufsteigend",
+    "sort_button": "↕️ Sortieren",
+
+    "search": "Suche",
+
+    "search_placeholder": "🔍 Suchbegriff eingeben...",
+    "search_button": "🔍 Suchen",
+
+    "success_export": "Daten erfolgreich exportiert.",
+    "error_export": "Keine Daten zum Exportieren vorhanden.",
+    "error_load": "Fehler beim Laden der Datei: {error}",
+    "error_table": "Tabelle konnte nicht geladen werden.",
+    "copy_guild_id": "🔗 Guild-ID kopieren",
+    "copy_owner": "👤 Owner kopieren",
+    "copy_all": "📋 Alles kopieren"
+  },
+  "en": {
+    "title": "EzCord Guild Sorter",
+    "file_management": "File Management",
+    "load_file": "📂 Load file",
+    "export_data": "📤 Export",
+    "member_count": "Member Count",
+    "guild_name": "Guild Name",
+    "guild_id": "Guild ID",
+    "owner": "Owner",
+    "error": "Error",
+    "success": "Success",
+
+    "sort": "Sort",
+    "descending": "Descending",
+    "ascending": "Ascending",
+    "sort_button": "↕️ Sort",
+
+    "search": "Search",
+
+    "search_placeholder": "🔍 Enter search term...",
+    "search_button": "🔍 Search",
+
+    "success_export": "Data successfully exported.",
+    "error_export": "No data available for export.",
+    "error_load": "Error loading file: {error}",
+    "error_table": "Unable to load table.",
+    "copy_guild_id": "🔗 Copy Guild-ID",
+    "copy_owner": "👤 Copy Owner",
+    "copy_all": "📋 Copy all"
+  }
+}
