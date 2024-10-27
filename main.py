@@ -5,6 +5,7 @@ from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
 import customtkinter as ctk
+import ezcord
 import pandas as pd
 import pyperclip
 import sv_ttk
@@ -279,17 +280,29 @@ class ManagerApp:
             lines = file.readlines()
 
         guilds = []
+        failed_guilds = []
         for line in lines:
             parts = line.split(" - ")
             if len(parts) == 4:
                 guild = {
                     self.translations[self.language]["guild_name"]: parts[0].strip(),
-                    self.translations[self.language]["member_count"]: int(parts[1].strip()),
+                    self.translations[self.language]["member_count"]: int(parts[1].replace(',', '').strip()),
                     self.translations[self.language]["guild_id"]: parts[2].strip(),
                     self.translations[self.language]["owner"]: parts[3].strip()
                 }
                 guilds.append(guild)
+            else:
+                failed_guilds.append(line)
 
+        if failed_guilds:
+            print(f"Failed to parse {len(failed_guilds)} lines out of {len(lines)} lines. Failed lines: \n{failed_guilds}")
+        #
+        # If a guild is in Failed List, Check if the Format is Correct
+        #
+        # GUILD-NAME - MEMBER-COUNT - GUILD-ID - OWNER
+        #
+        # If the GUILD-NAME or OWNER has a '-' in it, it will be put in the failed list
+        #
         return pd.DataFrame(guilds)
 
     def display_data_in_table(self, dataframe):
