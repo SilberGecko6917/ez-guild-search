@@ -1,4 +1,5 @@
 import json
+import re
 import tkinter as tk
 import traceback
 from pathlib import Path
@@ -8,6 +9,7 @@ import customtkinter as ctk
 import pandas as pd
 import pyperclip
 import sv_ttk
+import yaml
 
 
 def load_translations():
@@ -264,7 +266,7 @@ class ManagerApp:
         self.search_entry.bind("<Return>", lambda e: self.search_data())
 
     def load_file(self):
-        file_path = filedialog.askopenfilename(filetypes=[("Text Files", "*.txt")])
+        file_path = filedialog.askopenfilename(filetypes=[("Text Files", "*.yaml")])
         if file_path:
             try:
                 self.df = self.load_and_parse_file(file_path)
@@ -276,32 +278,18 @@ class ManagerApp:
 
     def load_and_parse_file(self, file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
-            lines = file.readlines()
+            data = yaml.safe_load(file)
 
         guilds = []
-        failed_guilds = []
-        for line in lines:
-            parts = line.split(" - ")
-            if len(parts) == 4:
-                guild = {
-                    self.translations[self.language]["guild_name"]: parts[0].strip(),
-                    self.translations[self.language]["member_count"]: int(parts[1].replace(',', '').strip()),
-                    self.translations[self.language]["guild_id"]: parts[2].strip(),
-                    self.translations[self.language]["owner"]: parts[3].strip()
-                }
-                guilds.append(guild)
-            else:
-                failed_guilds.append(line)
+        for item in data:
+            guild = {
+                self.translations[self.language]["guild_name"]: item.get("name", "").strip(),
+                self.translations[self.language]["member_count"]: int(item.get("member_count", 0)),
+                self.translations[self.language]["guild_id"]: str(item.get("id", "")).strip(),
+                self.translations[self.language]["owner"]: item.get("owner", "").strip(),
+            }
+            guilds.append(guild)
 
-        if failed_guilds:
-            print(f"Failed to parse {len(failed_guilds)} lines out of {len(lines)} lines. Failed lines: \n{failed_guilds}")
-        #
-        # If a guild is in Failed List, Check if the Format is Correct
-        #
-        # GUILD-NAME - MEMBER-COUNT - GUILD-ID - OWNER
-        #
-        # If the GUILD-NAME or OWNER has a '-' in it, it will be put in the failed list
-        #
         return pd.DataFrame(guilds)
 
     def display_data_in_table(self, dataframe):
@@ -363,6 +351,7 @@ class ManagerApp:
             column = self.search_column.get()
             search_term = self.search_entry.get().strip()
             if search_term:
+                search_term = re.escape(search_term)
                 self.df = self.df[self.df[column].str.contains(search_term, case=False)]
             self.display_data_in_table(self.df)
 
