@@ -29,7 +29,7 @@ python main.py
 
 ## Import Data 📥
     
-Upload a .txt file with your bot guild data from [ezcord](https://github.com/tibue99/ezcord) (/admin show_servers)
+Upload a .yaml file with your bot guild data from [ezcord](https://github.com/tibue99/ezcord) (/admin show_servers)
 
 # License 📜
 
